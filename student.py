@@ -1,20 +1,23 @@
-import unittest
-from student import Student
+from datetime import date, timedelta
 
 
-class TestStudent(unittest.TestCase):
-    def test_full_name(self):
-        student = Student("John", "Doe")
-        self.assertEqual(student.full_name, "John Doe")
+class Student:
+    """ A Student class as a basis for method testing """
 
-    def test_alert_santa(self):
-        student = Student("John",  "Doe")
-        student.alert_santa()
-        self.assertTrue(student.naughty_list)
+    def __init__(self, first_name, last_name):
+        self._first_name = first_name
+        self._last_name = last_name
+        self._start_date = date.today()
+        self.end_date = date.today() + timedelta(days=365)
+        self.naughty_list = False
 
-    def test_email(self):
-        student = Student("John",  "Doe")
-        self.assertEqual(student.email, "john.doe@email.com")
+    @property
+    def full_name(self):
+        return f"{self._first_name} {self._last_name}"
 
-if __name__ == "__main__":
-    unittest.main()
+    @property
+    def email(self):
+        return f"{self._first_name.lower()}.{self._last_name.lower()}@email.com"
+
+    def alert_santa(self):
+        self.naughty_list = True
